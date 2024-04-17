@@ -15,10 +15,17 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  newman:
+  postman_test:
+    name: Postman Test
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@master
-        with:
-          collection: collection/fakestore.postman_collection.json
-          environment: enviroment/FakeStoreAPI.postman_environment.json
+    - name: Check out code
+      id: checkout
+      uses: actions/checkout@master
+
+    - name: Newman - run collection with postbot scripts
+      uses: matt-ball/newman-action@master
+      with:
+        collection: collection/fakestore.postman_collection.json
+        environment: enviroment/FakeStoreAPI.postman_environment.json
